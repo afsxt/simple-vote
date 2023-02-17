@@ -1,0 +1,222 @@
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /admin/v1/vote:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: State
+        in: body
+        name: state
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员控制选择开始和结束
+      tags:
+      - admin
+  /admin/v1/vote/candidates:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Description
+        in: body
+        name: description
+        schema:
+          type: string
+      - description: ThemeID
+        in: body
+        name: themeID
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员创建候选人
+      tags:
+      - admin
+  /admin/v1/vote/theme:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Description
+        in: body
+        name: description
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员创建选举主题
+      tags:
+      - admin
+  /admin/v1/vote/theme/{id}/state:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: State
+        in: body
+        name: state
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员控制选举开始或结束
+      tags:
+      - admin
+  /api/v1/vote:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ThemeID
+        in: body
+        name: themeID
+        required: true
+        schema:
+          type: string
+      - description: UserID
+        in: body
+        name: userID
+        required: true
+        schema:
+          type: string
+      - description: CandidateID
+        in: body
+        name: candidateID
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 用户投票
+      tags:
+      - user
+  /api/v1/vote/{themeID}:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ThemeID
+        in: body
+        name: themeID
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 用户获取选举状态
+      tags:
+      - user
+  /api/v1/vote/verify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: IDCard
+        in: body
+        name: idCard
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 用户较验
+      tags:
+      - user
+swagger: "2.0"
