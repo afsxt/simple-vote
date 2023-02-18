@@ -10,31 +10,6 @@ definitions:
 info:
   contact: {}
 paths:
-  /admin/v1/vote:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: State
-        in: body
-        name: state
-        required: true
-        schema:
-          type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/app.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/app.Response'
-      summary: 管理员控制选择开始和结束
-      tags:
-      - admin
   /admin/v1/vote/candidates:
     post:
       consumes:
@@ -123,7 +98,54 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/app.Response'
-      summary: 管理员控制选举开始或结束
+      summary: 管理员控制选举主题开始或结束
+      tags:
+      - admin
+  /admin/v1/vote/theme/{themeID}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Theme
+        in: body
+        name: theme
+        schema:
+          type: integer
+      - description: Candidate
+        in: body
+        name: candidate
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员获取选举结果，如有candidate参数即为该候选人的票数，否则为该主题下所有候选人得票结果
+      tags:
+      - admin
+  /admin/v1/vote/theme/{themeID}/candidate/{candidateID}:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员获取某个候选人的支持用户
       tags:
       - admin
   /api/v1/vote:
@@ -163,8 +185,8 @@ paths:
       summary: 用户投票
       tags:
       - user
-  /api/v1/vote/{themeID}:
-    post:
+  /api/v1/vote/theme/{themeID}:
+    get:
       consumes:
       - application/json
       parameters:

@@ -11,6 +11,9 @@ type Vote struct {
 	CandidateID int
 	CreatedBy   string
 	ModifiedBy  string
+
+	PageSize int
+	PageNum  int
 }
 
 func (v *Vote) Add() error {
@@ -27,10 +30,24 @@ func (v *Vote) Add() error {
 	return nil
 }
 
-func (v *Vote) Check() bool {
+func (v *Vote) Check() (bool, error) {
 	return models.CheckVote(v.ThemeID, v.UserID)
 }
 
-func (v *Vote) GetVoteByThemeID() ([]*models.Vote, error) {
-	return models.GetVoteByThemeID(v.ThemeID)
+func (v *Vote) GetVote() ([]*models.VoteResult, error) {
+	vote := map[string]interface{}{
+		"theme_id":     v.ThemeID,
+		"user_id":      v.UserID,
+		"candidate_id": v.CandidateID,
+	}
+	return models.GetVotes(vote)
+}
+
+func (v *Vote) GetVoteUsers() ([]*models.User, error) {
+	vote := map[string]interface{}{
+		"theme_id":     v.ThemeID,
+		"user_id":      v.UserID,
+		"candidate_id": v.CandidateID,
+	}
+	return models.GetVoteUsers(v.PageNum, v.PageSize, vote)
 }

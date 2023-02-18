@@ -24,6 +24,7 @@ var MsgFlags = map[int]string{
 	ERROR_ADD_USER_FAIL:         "新增用户失败",
 	ERROR_CHECK_USER_VALID_FAIL: "较验用户是否合法失败",
 	ERROR_INVALID_USER:          "非法用户",
+	ERROR_GET_VOTE_USER_FAIL:    "获取候选人支持用户失败",
 
 	ERROR_ADD_VOTE_FAIL:        "新增投票失败",
 	ERROR_VOTE_AGAIN_FAILE:     "该用户已经对该主题投过票",

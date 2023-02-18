@@ -75,7 +75,7 @@ func VerifyUser(c *gin.Context) {
 // @Param themeID body string true "ThemeID"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /api/v1/vote/{themeID} [post]
+// @Router /api/v1/vote/theme/{themeID} [get]
 func GetVoteDetails(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -85,7 +85,7 @@ func GetVoteDetails(c *gin.Context) {
 		ThemeID: com.StrTo(c.Param("themeID")).MustInt(),
 	}
 
-	votes, err := voteService.GetVoteByThemeID()
+	votes, err := voteService.GetVote()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_GET_VOTE_DETAIL_FAIL, nil)
 		return

@@ -61,7 +61,7 @@ func Vote(c *gin.Context) {
 		CandidateID: form.CandidateID,
 	}
 
-	if ok := voteService.Check(); !ok {
+	if exists, _ := voteService.Check(); exists {
 		appG.Response(http.StatusOK, e.ERROR_VOTE_AGAIN_FAILE, nil)
 		return
 	}

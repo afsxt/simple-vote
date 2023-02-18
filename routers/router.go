@@ -31,6 +31,8 @@ func InitRouter() *gin.Engine {
 		adminGroupV1.POST("/vote/theme", adminV1.AddTheme)
 		adminGroupV1.POST("/vote/candidates", adminV1.AddCandidates)
 		adminGroupV1.POST("/vote/theme/:id/state", adminV1.ChangeThemeState)
+		adminGroupV1.GET("/vote/theme/:themeID", adminV1.GetThemeResult)
+		adminGroupV1.GET("/vote/theme/:themeID/candidate/:candidateID/users", adminV1.GetCandidateUsers)
 	}
 
 	apiGroupv1 := r.Group("/api/v1")
@@ -38,7 +40,7 @@ func InitRouter() *gin.Engine {
 	{
 		apiGroupv1.POST("/vote/verify", apiV1.VerifyUser)
 		apiGroupv1.POST("/vote", apiV1.Vote)
-		apiGroupv1.GET("/vote/:themeID", apiV1.GetVoteDetails)
+		apiGroupv1.GET("/vote/theme/:themeID", apiV1.GetVoteDetails)
 	}
 
 	return r

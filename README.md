@@ -60,10 +60,12 @@ $ go run main.go
 [GIN-debug] POST   /admin/v1/vote/theme      --> github.com/afsxt/simple-vote/routers/admin/v1.AddTheme (3 handlers)
 [GIN-debug] POST   /admin/v1/vote/candidates --> github.com/afsxt/simple-vote/routers/admin/v1.AddCandidates (3 handlers)
 [GIN-debug] POST   /admin/v1/vote/theme/:id/state --> github.com/afsxt/simple-vote/routers/admin/v1.ChangeThemeState (3 handlers)
+[GIN-debug] GET    /admin/v1/vote/theme/:themeID --> github.com/afsxt/simple-vote/routers/admin/v1.GetThemeResult (3 handlers)
+[GIN-debug] GET    /admin/v1/vote/theme/:themeID/candidate/:candidateID/users --> github.com/afsxt/simple-vote/routers/admin/v1.GetCandidateUsers (3 handlers)
 [GIN-debug] POST   /api/v1/vote/verify       --> github.com/afsxt/simple-vote/routers/api/v1.VerifyUser (3 handlers)
 [GIN-debug] POST   /api/v1/vote              --> github.com/afsxt/simple-vote/routers/api/v1.Vote (3 handlers)
-[GIN-debug] GET    /api/v1/vote/:themeID     --> github.com/afsxt/simple-vote/routers/api/v1.GetVoteDetails (3 handlers)
-2023/02/18 10:33:15 [info] start http server listening :8000
+[GIN-debug] GET    /api/v1/vote/theme/:themeID --> github.com/afsxt/simple-vote/routers/api/v1.GetVoteDetails (3 handlers)
+2023/02/18 13:02:11 [info] start http server listening :8000
 ```
 
 Swagger Api文档

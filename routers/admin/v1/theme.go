@@ -70,7 +70,7 @@ type ChangeThemeStateForm struct {
 }
 
 // Change godoc
-// @Summary 管理员控制选举开始或结束
+// @Summary 管理员控制选举主题开始或结束
 // @Schemes
 // @Description
 // @Tags admin
