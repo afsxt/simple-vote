@@ -37,7 +37,7 @@ func GetThemeResult(c *gin.Context) {
 
 	votes, err := voteService.GetVote()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_VOTE_DETAIL_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_VOTE_GET_DETAIL_FAIL, nil)
 		return
 	}
 
@@ -71,7 +71,7 @@ func GetCandidateUsers(c *gin.Context) {
 
 	votes, err := voteService.GetVoteUsers()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_VOTE_USER_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_USER_GET_VOTE_FAIL, nil)
 		return
 	}
 

@@ -29,6 +29,7 @@ func InitRouter() *gin.Engine {
 	// adminGroupV1.Use(jwt.JWT())
 	{
 		adminGroupV1.POST("/vote/theme", adminV1.AddTheme)
+		adminGroupV1.PUT("/vote/theme/:id", adminV1.UpdateTheme)
 		adminGroupV1.POST("/vote/candidates", adminV1.AddCandidates)
 		adminGroupV1.POST("/vote/theme/:id/state", adminV1.ChangeThemeState)
 		adminGroupV1.GET("/vote/theme/:themeID", adminV1.GetThemeResult)

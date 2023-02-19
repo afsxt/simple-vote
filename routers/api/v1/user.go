@@ -48,17 +48,17 @@ func VerifyUser(c *gin.Context) {
 
 	valid, err := userService.CheckValid()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_CHECK_USER_VALID_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_USER_CHECK_VALID_FAIL, nil)
 		return
 	}
 	if !valid {
-		appG.Response(http.StatusOK, e.ERROR_INVALID_USER, nil)
+		appG.Response(http.StatusOK, e.ERROR_USER_INVALID, nil)
 		return
 	}
 
 	userService.Verify = 1
 	if err := userService.Add(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_USER_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_USER_ADD_FAIL, nil)
 		return
 	}
 
@@ -87,7 +87,7 @@ func GetVoteDetails(c *gin.Context) {
 
 	votes, err := voteService.GetVote()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_VOTE_DETAIL_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_VOTE_GET_DETAIL_FAIL, nil)
 		return
 	}
 

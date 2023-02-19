@@ -76,6 +76,23 @@ paths:
       summary: 管理员创建选举主题
       tags:
       - admin
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员更新选举主题
+      tags:
+      - admin
   /admin/v1/vote/theme/{id}/state:
     post:
       consumes:

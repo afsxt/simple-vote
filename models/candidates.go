@@ -12,7 +12,8 @@ type Candidates struct {
 // ExistCandidateBy 判断主题候选人是否存在
 func ExistCandidateBy(name string, theme_id int) (bool, error) {
 	var c Candidates
-	err := db.Select("id").Where("name = ? AND theme_id = ? AND deleted_on = ? ", name, theme_id, 0).First(&c).Error
+	err := db.Select("id").Where("name = ? AND theme_id = ? AND deleted_on = ? ",
+		name, theme_id, 0).First(&c).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}
@@ -41,7 +42,8 @@ func AddCandidate(data map[string]interface{}) error {
 
 func GetCandidateCountByThemeID(themeID int) (int, error) {
 	var count int
-	if err := db.Model(&Candidates{}).Where("theme_id = ?", themeID).Count(&count).Error; err != nil {
+	if err := db.Model(&Candidates{}).Where("theme_id = ?", themeID).
+		Count(&count).Error; err != nil {
 		return 0, err
 	}
 	return count, nil

@@ -46,11 +46,11 @@ func Vote(c *gin.Context) {
 	}
 	exists, err := themeService.ExistByID()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_EXIST_FAIL, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_THEME, nil)
+		appG.Response(http.StatusOK, e.ERROR_THEME_NOT_EXIST, nil)
 		return
 	}
 	// todo: 需较验其他id正确性，先忽略
@@ -67,7 +67,7 @@ func Vote(c *gin.Context) {
 	}
 
 	if err := voteService.Add(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_VOTE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_VOTE_ADD_FAIL, nil)
 		return
 	}
 

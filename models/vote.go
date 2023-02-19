@@ -47,7 +47,8 @@ func GetVotes(data map[string]interface{}) ([]*VoteResult, error) {
 	if v.CandidateID != 0 {
 		conn = conn.Where("candidate_id = ?", v.CandidateID)
 	}
-	if err := conn.Select("candidate_id, count(user_id) as vote_count").Group("candidate_id").Scan(&result).Error; err != nil {
+	if err := conn.Select("candidate_id, count(user_id) as vote_count").
+		Group("candidate_id").Scan(&result).Error; err != nil {
 		return nil, err
 	}
 	return result, nil
@@ -67,7 +68,8 @@ func GetVoteUsers(pageNum int, pageSize int, data map[string]interface{}) ([]*Us
 	if v.CandidateID != 0 {
 		conn = conn.Where("candidate_id = ?", v.CandidateID)
 	}
-	if err := conn.Select("vote_user.*").Joins("left join vote_user on user_id = vote_user.id").Scan(&result).Error; err != nil {
+	if err := conn.Select("vote_user.*").Joins("left join vote_user on user_id = vote_user.id").
+		Scan(&result).Error; err != nil {
 		return nil, err
 	}
 	return result, nil

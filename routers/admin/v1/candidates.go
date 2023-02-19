@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -38,7 +37,6 @@ func AddCandidates(c *gin.Context) {
 	)
 
 	httpCode, errCode := app.BindAndValid(c, &form)
-	log.Println(1111, form)
 	if errCode != e.SUCCESS {
 		appG.Response(httpCode, errCode, nil)
 		return
@@ -49,11 +47,11 @@ func AddCandidates(c *gin.Context) {
 	}
 	exists, err := themeService.ExistByID()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_EXIST_FAIL, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_THEME, nil)
+		appG.Response(http.StatusOK, e.ERROR_THEME_NOT_EXIST, nil)
 		return
 	}
 
@@ -65,16 +63,16 @@ func AddCandidates(c *gin.Context) {
 
 	exists, err = candidateService.ExistBy()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_CANDIDATE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_CANDIDATE_EXIST_FAIL, nil)
 		return
 	}
 	if exists {
-		appG.Response(http.StatusOK, e.ERROR_EXIST_CANDIDATE, nil)
+		appG.Response(http.StatusOK, e.ERROR_CANDIDATE_EXIST, nil)
 		return
 	}
 
 	if err := candidateService.Add(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_CANDIDATE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_CANDIDATE_ADD_FAIL, nil)
 		return
 	}
 

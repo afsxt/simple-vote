@@ -49,16 +49,16 @@ func AddTheme(c *gin.Context) {
 
 	exists, err := themeService.ExistByName()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_EXIST_FAIL, nil)
 		return
 	}
 	if exists {
-		appG.Response(http.StatusOK, e.ERROR_EXIST_THEME, nil)
+		appG.Response(http.StatusOK, e.ERROR_THEME_EXIST, nil)
 		return
 	}
 
 	if err := themeService.Add(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_ADD_FAIL, nil)
 		return
 	}
 
@@ -93,16 +93,17 @@ func ChangeThemeState(c *gin.Context) {
 	}
 
 	themeService := theme_service.Theme{
-		ID: com.StrTo(c.Param("id")).MustInt(),
+		ID:    com.StrTo(c.Param("id")).MustInt(),
+		State: int(form.State),
 	}
 
 	exists, err := themeService.ExistByID()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_EXIST_FAIL, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_THEME, nil)
+		appG.Response(http.StatusOK, e.ERROR_THEME_NOT_EXIST, nil)
 		return
 	}
 
@@ -122,9 +123,30 @@ func ChangeThemeState(c *gin.Context) {
 		}
 	}
 	if err := themeService.ChangeState(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_THEME_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_THEME_ADD_FAIL, nil)
 		return
 	}
 
+	// 当关闭选举时发送异步任务发送邮箱
+	if form.State == int(constants.ThemeFinished) {
+		// todo:
+		// utils.SendMail()
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
+
+// Change godoc
+// @Summary 管理员更新选举主题
+// @Schemes
+// @Description
+// @Tags admin
+// @Accept json
+// @Produce json
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /admin/v1/vote/theme [put]
+func UpdateTheme(c *gin.Context) {
+	appG := app.Gin{C: c}
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
