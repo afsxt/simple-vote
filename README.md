@@ -6,8 +6,8 @@
 
 ## 待优化点
 - 发送邮件: 目前发送邮件api有封装完成，但没实现具体的邮件发送逻辑，可用一个异步任务或消息队列实现具体发送流程
-- 完善测试用例及代码覆盖率: 目前只实现了极少的测试用例
-- 扩展设计: 用户及邮件部分单独实现公共服务
+- 完善测试用例及代码覆盖率: 目前只实现了17个测试用例
+- 优化及扩展设计: 缓存优化，用户及邮件部分单独实现公共服务等
 - 代码及错误处理更加完善
 
 ## 目录结构
@@ -36,7 +36,8 @@ simple-vote
 └── routers
 └── service
 └── testing（测试用例）
-    └── test_comm.go (测试公共库)
+    └── api_test.go
+    └── utils.go
 └── Dockerfile
 └── go.mod
 └── main.go
@@ -136,11 +137,6 @@ Swagger Api文档
 SUCCESS:        "ok",
 ERROR:          "fail",
 INVALID_PARAMS: "请求参数错误",
-
-ERROR_AUTH_CHECK_TOKEN_FAIL:    "Token鉴权失败",
-ERROR_AUTH_CHECK_TOKEN_TIMEOUT: "Token已超时",
-ERROR_AUTH_TOKEN:               "Token生成失败",
-ERROR_AUTH:                     "Token错误",
 
 ERROR_CANDIDATE_EXIST:      "该候选人已经存在",
 ERROR_CANDIDATE_EXIST_FAIL: "检查候选人是否存在失败",

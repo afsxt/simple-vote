@@ -14,7 +14,7 @@ import (
 )
 
 type AddThemeForm struct {
-	Name        string `form:"name"`
+	Name        string `form:"name" valid:"Required"`
 	Description string `form:"description"`
 }
 

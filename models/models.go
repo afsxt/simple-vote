@@ -51,6 +51,10 @@ func Setup() {
 	db.DB().SetMaxOpenConns(100)
 }
 
+func GetDB() *gorm.DB {
+	return db
+}
+
 // CloseDB closes database connection (unnecessary)
 func CloseDB() {
 	defer db.Close()
